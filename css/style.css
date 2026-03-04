@@ -446,6 +446,95 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .pecado-offer h3 { color: var(--gold); margin-bottom: var(--space-sm); }
 .pecado-offer p { margin: 0 auto; font-size: 0.9rem; }
 
+/* --- Monthly Promo Special --- */
+.pecado-promo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3xl);
+  max-width: 800px;
+  margin: 0 auto var(--space-3xl);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-glow-gold);
+}
+.pecado-promo::before {
+  content: 'OFERTA DEL MES';
+  position: absolute;
+  top: 20px;
+  right: -30px;
+  background: var(--gradient-fire);
+  color: #fff;
+  padding: 5px 40px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  transform: rotate(45deg);
+  z-index: 2;
+  box-shadow: var(--shadow-sm);
+}
+.promo-image {
+  flex: 0 0 280px;
+  height: 280px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+.promo-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+.pecado-promo:hover .promo-image img {
+  transform: scale(1.05);
+}
+.promo-content {
+  flex: 1;
+}
+.promo-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--gold);
+  margin-bottom: var(--space-sm);
+}
+.promo-desc {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: var(--space-lg);
+  line-height: 1.5;
+}
+.promo-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  background: var(--gradient-fire);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 768px) {
+  .pecado-promo {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xl);
+    padding: var(--space-lg);
+  }
+  .promo-image {
+    flex: 0 0 200px;
+    height: 200px;
+    width: 200px;
+  }
+  .promo-title { font-size: 1.6rem; }
+  .promo-price { font-size: 2rem; }
+}
+
 /* ===== MENU DIGITAL ===== */
 .menu-digital { background: var(--bg-carbon); }
 .menu-layout { display: grid; grid-template-columns: 280px 1fr; gap: var(--space-2xl); }
@@ -472,6 +561,75 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .menu-card-price { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
 .menu-card-btn { padding: 0.5rem 1.2rem; background: var(--gradient-fire); border: none; border-radius: var(--radius-full); color: #fff; font-family: 'Work Sans', sans-serif; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; transition: all var(--transition-glow); box-shadow: 0 0 10px rgba(255,69,0,0.2); }
 .menu-card-btn:hover { box-shadow: 0 0 20px rgba(255,69,0,0.5); transform: scale(1.05); }
+
+/* --- Bebidas Specific Style --- */
+.bebida-card .menu-card-image {
+  height: 240px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bebida-card .menu-card-image img {
+  object-fit: contain;
+  width: auto;
+  height: 100%;
+}
+.bebida-card .menu-card-body {
+  padding: var(--space-md);
+}
+.bebida-card .menu-card-desc {
+  margin-bottom: var(--space-sm);
+}
+
+/* --- Proximamente Section --- */
+.menu-proximamente {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.proximamente-image {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-gold);
+  aspect-ratio: 16/9;
+}
+.proximamente-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) grayscale(0.5);
+}
+.proximamente-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+}
+.proximamente-overlay span {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  border: 4px solid var(--gold);
+  padding: var(--space-md) var(--space-xl);
+  transform: rotate(-5deg);
+}
+.proximamente-text {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.6;
+}
 
 /* ===== TESTIMONIALS ===== */
 .testimonials { background: var(--bg-black); }

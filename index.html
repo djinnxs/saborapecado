@@ -110,9 +110,9 @@
           </div>
           <div class="favorito-card-body">
             <h3 class="favorito-card-name">Tentación Suprema</h3>
-            <p class="favorito-card-desc">Doble carne de angus, cheddar fundido, cebolla caramelizada al bourbon y salsa secreta del diablo.</p>
+            <p class="favorito-card-desc">Doble carne, doble cheddar + papas.</p>
             <div class="favorito-card-footer">
-              <span class="favorito-card-price">$2.890</span>
+              <span class="favorito-card-price">$10.000</span>
               <button class="favorito-card-add" aria-label="Agregar Tentación Suprema">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
               </button>
@@ -122,13 +122,13 @@
         <article class="favorito-card animate-on-scroll" tabindex="0">
           <div class="favorito-card-image">
             <img src="images/cheese-burger.png" alt="Lujuria de Queso" loading="lazy" class="fade-in-image" />
-            <span class="favorito-card-badge">Nuevo</span>
+            <span class="favorito-card-badge">Más Intensa</span>
           </div>
           <div class="favorito-card-body">
             <h3 class="favorito-card-name">Lujuria de Queso</h3>
-            <p class="favorito-card-desc">Un volcán de provolone, inyección de cheddar y crujiente de parmesano sobre carne Dry Aged.</p>
+            <p class="favorito-card-desc">Volcán de provolone, inyección de cheddar y crujiente de parmesano sobre una carne infernal + papas.</p>
             <div class="favorito-card-footer">
-              <span class="favorito-card-price">$3.150</span>
+              <span class="favorito-card-price">$13.000</span>
               <button class="favorito-card-add" aria-label="Agregar Lujuria de Queso">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
               </button>
@@ -138,12 +138,13 @@
         <article class="favorito-card animate-on-scroll" tabindex="0">
           <div class="favorito-card-image">
             <img src="images/spicy-burger.png" alt="Inferno Spicy" loading="lazy" class="fade-in-image" />
+            <span class="favorito-card-badge">Picante</span>
           </div>
           <div class="favorito-card-body">
             <h3 class="favorito-card-name">Inferno Spicy</h3>
-            <p class="favorito-card-desc">Jalapeños tatemados al infierno, mermelada de bacon picante y alioli de habanero.</p>
+            <p class="favorito-card-desc">Doble carne, doble cheddar, bacon, y alioli + papas.</p>
             <div class="favorito-card-footer">
-              <span class="favorito-card-price">$2.790</span>
+              <span class="favorito-card-price">$11.000</span>
               <button class="favorito-card-add" aria-label="Agregar Inferno Spicy">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
               </button>
@@ -190,6 +191,21 @@
         <h2><span class="text-fire">Pecados del Mes</span></h2>
         <div class="section-divider"></div>
         <p>Tentaciones exclusivas que solo verás una vez. Aprovechá antes de que se extingan.</p>
+        
+        <div class="pecado-promo animate-on-scroll">
+          <div class="promo-image">
+            <img src="images/promo.png" alt="Pecado Clásico" class="fade-in-image" />
+          </div>
+          <div class="promo-content">
+            <h3 class="promo-title">Pecado Clásico</h3>
+            <p class="promo-desc">pan tostado, carne, tomate, lechuga, queso y jamón + papas.</p>
+            <div class="promo-price">$7.900</div>
+            <button class="menu-card-btn" onclick="document.querySelector('[aria-label=\'Agregar Pecado Clásico\']').click()" style="margin-top:var(--space-md)">Agregar</button>
+            <!-- Hidden original button for cart compatibility -->
+            <button class="menu-card-btn" aria-label="Agregar Pecado Clásico" style="display:none">Agregar</button>
+          </div>
+        </div>
+
         <div class="countdown" id="countdown">
           <div class="countdown-item"><div class="countdown-number" id="days">00</div><div class="countdown-label">Días</div></div>
           <div class="countdown-item"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Horas</div></div>
@@ -228,32 +244,61 @@
             <h3 class="menu-section-title animate-on-scroll">Hamburguesas Prohibidas</h3>
             <p class="menu-section-subtitle animate-on-scroll">Carnes maduradas y combinaciones que desafían la moral.</p>
             <div class="menu-grid">
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/hero-burger.png" alt="Gula de Tocino" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Gula de Tocino</h3><p class="menu-card-desc">"Doble smash de Angus, cuádruple bacon caramelizado en bourbon y cheddar líquido ahumado."</p><div class="menu-card-footer"><span class="menu-card-price">$3.290</span><button class="menu-card-btn" aria-label="Agregar Gula de Tocino">Agregar</button></div></div></article>
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/cheese-burger.png" alt="Lujuria de Queso" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Lujuria de Queso</h3><p class="menu-card-desc">"Volcán de provolone, inyección de cheddar y crujiente de parmesano sobre carne Dry Aged."</p><div class="menu-card-footer"><span class="menu-card-price">$3.150</span><button class="menu-card-btn" aria-label="Agregar Lujuria de Queso">Agregar</button></div></div></article>
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/spicy-burger.png" alt="Inferno Spicy" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Inferno Spicy</h3><p class="menu-card-desc">"Jalapeños tatemados, mermelada de bacon picante y alioli de habanero."</p><div class="menu-card-footer"><span class="menu-card-price">$2.790</span><button class="menu-card-btn" aria-label="Agregar Inferno Spicy">Agregar</button></div></div></article>
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/hero-burger.png" alt="Tentación Suprema" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Tentación Suprema</h3><p class="menu-card-desc">"Doble angus, cheddar fundido, cebolla caramelizada al bourbon y salsa del diablo."</p><div class="menu-card-footer"><span class="menu-card-price">$2.890</span><button class="menu-card-btn" aria-label="Agregar Tentación Suprema">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/hero-burger.png" alt="Gula de Tocino" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Gula de Tocino</h3><p class="menu-card-desc">"Doble carne, cuádruple bacon y doble cheddar + papas."</p><div class="menu-card-footer"><span class="menu-card-price">$13000</span><button class="menu-card-btn" aria-label="Agregar Gula de Tocino">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/cheese-burger.png" alt="Lujuria de Queso" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Lujuria de Queso</h3><p class="menu-card-desc">"Volcán de provolone, inyección de cheddar y crujiente de parmesano sobre una carne infernal + papas."</p><div class="menu-card-footer"><span class="menu-card-price">$13000</span><button class="menu-card-btn" aria-label="Agregar Lujuria de Queso">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/spicy-burger.png" alt="Inferno Spicy" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Inferno Spicy</h3><p class="menu-card-desc">"Doble carne, doble cheddar, bacon, y alioli + papas."</p><div class="menu-card-footer"><span class="menu-card-price">$11000</span><button class="menu-card-btn" aria-label="Agregar Inferno Spicy">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/hero-burger.png" alt="Tentación Suprema" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Tentación Suprema</h3><p class="menu-card-desc">"Doble carne, doble cheddar + papas."</p><div class="menu-card-footer"><span class="menu-card-price">$10000</span><button class="menu-card-btn" aria-label="Agregar Tentación Suprema">Agregar</button></div></div></article>
             </div>
           </div>
           <div id="tentaciones">
             <h3 class="menu-section-title animate-on-scroll">Tentaciones (Acompañantes)</h3>
             <p class="menu-section-subtitle animate-on-scroll">El complemento ideal para tu caída.</p>
             <div class="menu-grid">
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/grilled-sandwich.png" alt="Papas del Diablo" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Papas del Diablo</h3><p class="menu-card-desc">"Papas rústicas con salsa brava de la casa y lluvia de especias secretas."</p><div class="menu-card-footer"><span class="menu-card-price">$1.290</span><button class="menu-card-btn" aria-label="Agregar Papas del Diablo">Agregar</button></div></div></article>
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/hero-sandwich.png" alt="Club Pecaminoso" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Club Pecaminoso</h3><p class="menu-card-desc">"Sándwich club gourmet con pollo grillado, bacon, provolone y palta."</p><div class="menu-card-footer"><span class="menu-card-price">$2.490</span><button class="menu-card-btn" aria-label="Agregar Club Pecaminoso">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/grilled-sandwich.png" alt="Papas del Diablo" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Papas del Diablo</h3><p class="menu-card-desc">"Papas rústicas cocinadas con el fuego secreto."</p><div class="menu-card-footer"><span class="menu-card-price">$5000</span><button class="menu-card-btn" aria-label="Agregar Papas del Diablo">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/hero-sandwich.png" alt="Club Pecaminoso" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Lomito Pecaminoso</h3><p class="menu-card-desc">"Sándwich pan tostado, carne, tomate, lechuga, huevo frito, queso y jamón."</p><div class="menu-card-footer"><span class="menu-card-price">$10000</span><button class="menu-card-btn" aria-label="Agregar Club Pecaminoso">Agregar</button></div></div></article>
             </div>
           </div>
           <div id="dulces">
             <h3 class="menu-section-title animate-on-scroll">Pecados Dulces</h3>
             <p class="menu-section-subtitle animate-on-scroll">El cierre perfecto para tu experiencia pecaminosa.</p>
-            <div class="menu-grid">
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/restaurant-interior.png" alt="Tarta de Chocolate" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Tarta de Chocolate Pecaminosa</h3><p class="menu-card-desc">"Chocolate belga fundido sobre base de brownie con helado artesanal."</p><div class="menu-card-footer"><span class="menu-card-price">$1.890</span><button class="menu-card-btn" aria-label="Agregar Tarta">Agregar</button></div></div></article>
+            <div class="menu-proximamente animate-on-scroll">
+              <div class="proximamente-image">
+                <img src="images/horno-barro.png" alt="Horno de barro - Próximamente" class="fade-in-image" />
+                <div class="proximamente-overlay">
+                  <span>PRÓXIMAMENTE</span>
+                </div>
+              </div>
+              <p class="proximamente-text">Nuestras delicias dulces se están horneando en fuego lento para tentarte muy pronto.</p>
             </div>
           </div>
           <div id="bebidas">
             <h3 class="menu-section-title animate-on-scroll">Bebidas</h3>
             <p class="menu-section-subtitle animate-on-scroll">Acompañá tu pecado con la bebida perfecta.</p>
             <div class="menu-grid">
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/restaurant-interior.png" alt="Limonada del Infierno" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Limonada del Infierno</h3><p class="menu-card-desc">"Limón, jengibre, menta fresca y un toque de chile cayena."</p><div class="menu-card-footer"><span class="menu-card-price">$890</span><button class="menu-card-btn" aria-label="Agregar Limonada">Agregar</button></div></div></article>
+              <article class="menu-card bebida-card animate-on-scroll">
+                <div class="menu-card-image"><img src="images/coca500.jpg" alt="Coca Cola 500ml" loading="lazy" class="fade-in-image" /></div>
+                <div class="menu-card-body">
+                  <h3 class="menu-card-name">Coca Cola 500ml</h3>
+                  <p class="menu-card-desc">"El clásico sabor prohibido, bien helada."</p>
+                  <div class="menu-card-footer"><span class="menu-card-price">$3.000</span><button class="menu-card-btn" aria-label="Agregar Coca Cola 500ml">Agregar</button></div>
+                </div>
+              </article>
+              <article class="menu-card bebida-card animate-on-scroll">
+                <div class="menu-card-image"><img src="images/sprite500.jpg" alt="Sprite 500ml" loading="lazy" class="fade-in-image" /></div>
+                <div class="menu-card-body">
+                  <h3 class="menu-card-name">Sprite 500 ml</h3>
+                  <p class="menu-card-desc">"Refrescante y brutal para calmar el fuego."</p>
+                  <div class="menu-card-footer"><span class="menu-card-price">$3.000</span><button class="menu-card-btn" aria-label="Agregar Sprite 500ml">Agregar</button></div>
+                </div>
+              </article>
+              <article class="menu-card bebida-card animate-on-scroll">
+                <div class="menu-card-image"><img src="images/agua500.jpg" alt="Agua Mineral 500ml" loading="lazy" class="fade-in-image" /></div>
+                <div class="menu-card-body">
+                  <h3 class="menu-card-name">Agua Mineral 500ml</h3>
+                  <p class="menu-card-desc">"Pureza necesaria después de tanto pecado."</p>
+                  <div class="menu-card-footer"><span class="menu-card-price">$2.500</span><button class="menu-card-btn" aria-label="Agregar Agua Mineral 500ml">Agregar</button></div>
+                </div>
+              </article>
             </div>
           </div>
         </div>
@@ -308,7 +353,7 @@
         </div>
         <div class="footer-column"><h4>Navegación</h4><ul><li><a href="#home">Inicio</a></li><li><a href="#favoritos">Favoritos</a></li><li><a href="#secreto">Nuestro Secreto</a></li><li><a href="#pecados-mes">Pecados del Mes</a></li><li><a href="#menu">Menú</a></li></ul></div>
         <div class="footer-column"><h4>Menú</h4><ul><li><a href="#menu">Hamburguesas Prohibidas</a></li><li><a href="#menu">Tentaciones</a></li><li><a href="#menu">Pecados Dulces</a></li><li><a href="#menu">Bebidas</a></li></ul></div>
-        <div class="footer-column"><h4>Horario Delivery</h4><ul><li style="color:var(--text-muted);font-size:.88rem">Lun - Jue: 19:00 - 23:30</li><li style="color:var(--text-muted);font-size:.88rem">Vie - Sáb: 19:00 - 01:00</li><li style="color:var(--text-muted);font-size:.88rem">Dom: 13:00 - 23:00</li></ul></div>
+        <div class="footer-column"><h4>Horario Delivery</h4><ul><li style="color:var(--text-muted);font-size:.88rem">Lun - Jue: 19:00 - 23:30</li><li style="color:var(--text-muted);font-size:.88rem">Vie - Sáb: 19:00 - 01:00</li><li style="color:var(--text-muted);font-size:.88rem">Dom: 19:00 - 23:00</li></ul></div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 Sabor a Pecado. La gula no es un delito aquí.</p>
