@@ -465,16 +465,20 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .pecado-promo::before {
   content: 'OFERTA DEL MES';
   position: absolute;
-  top: 20px;
-  right: -30px;
+  top: 36px;
+  right: -42px;
+  width: 180px;
+  text-align: center;
   background: var(--gradient-fire);
   color: #fff;
-  padding: 5px 40px;
-  font-size: 0.7rem;
+  padding: 8px 0;
+  font-size: 0.82rem;
   font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   transform: rotate(45deg);
   z-index: 2;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 3px 10px rgba(255,69,0,0.5);
 }
 .promo-image {
   flex: 0 0 280px;
