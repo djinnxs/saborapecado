@@ -91,6 +91,19 @@
     });
   });
 
+  // ===== MENU SIDEBAR NAV =====
+  document.querySelectorAll('.menu-cat-link').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.menu-cat-link').forEach(function (b) { b.classList.remove('active'); });
+      this.classList.add('active');
+      var target = document.getElementById(this.dataset.target);
+      if (target) {
+        var pos = target.getBoundingClientRect().top + window.scrollY - (navbar ? navbar.offsetHeight : 0) - 30;
+        window.scrollTo({ top: pos, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
+      }
+    });
+  });
+
   // ===== LAZY LOAD MAP =====
   function initMap() {
     var mapEl = document.getElementById('deliveryMap');
