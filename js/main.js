@@ -1,15 +1,156 @@
 /**
- * Sabor a Pecado — Main JS v3
- * ✓ Functional cart (add, remove, quantity, total)
- * ✓ Cart drawer open/close
- * ✓ Checkout flow with order summary
- * ✓ Countdown, scroll animations, parallax
- * ✓ prefers-reduced-motion respected
+ * Sabor a Pecado — Main JS v4
+ * ✓ Custom Cursor follow
+ * ✓ Social Proof Ticker
+ * ✓ Menu Dynamic Filtering
+ * ✓ Lazy-loading Dark Map
+ * ✓ Functional cart & Checkout
  */
 (function () {
   'use strict';
 
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // ===== CUSTOM CURSOR =====
+  if (!prefersReducedMotion.matches && window.innerWidth > 1024) {
+    var cursor = document.getElementById('customCursor');
+    var follower = document.getElementById('customCursorFollower');
+    var posX = 0, posY = 0;
+    var mouseX = 0, mouseY = 0;
+
+    document.addEventListener('mousemove', function (e) {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animateCursor() {
+      posX += (mouseX - posX) / 6;
+      posY += (mouseY - posY) / 6;
+      if (cursor) cursor.style.transform = 'translate(' + mouseX + 'px, ' + mouseY + 'px) translate(-50%, -50%)';
+      if (follower) follower.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) translate(-50%, -50%)';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a, button, [role="button"]').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { cursor.style.transform += ' scale(2)'; cursor.style.background = 'rgba(212, 175, 55, 0.2)'; });
+      el.addEventListener('mouseleave', function () { cursor.style.background = 'rgba(212, 175, 55, 0.4)'; });
+    });
+  }
+
+  // ===== SOCIAL PROOF TICKER =====
+  var ticker = document.getElementById('socialTicker');
+  var tickerName = document.getElementById('tickerName');
+  var tickerTime = document.getElementById('tickerTime');
+  var names = ['Marcos R.', 'Elena G.', 'Andrés M.', 'Julieta S.', 'Facundo P.', 'Lucía D.', 'Ricardo T.'];
+  var products = ['una Tentación Suprema', 'un Pecado Clásico', 'una Lujuria de Queso', 'unas Papas del Diablo', 'un Inferno Spicy', 'unos Nuggets', 'una Salchipapa'];
+
+  function showTicker() {
+    if (!ticker) return;
+    var name = names[Math.floor(Math.random() * names.length)];
+    var product = products[Math.floor(Math.random() * products.length)];
+    tickerName.textContent = name;
+    var textNode = document.getElementById('tickerText');
+    if (textNode) textNode.textContent = ' acaba de pedir ' + product + '.';
+    if (tickerTime) tickerTime.textContent = 'Hace ' + (Math.floor(Math.random() * 5) + 1) + ' minutos';
+    
+    ticker.classList.add('show');
+    setTimeout(function() {
+      ticker.classList.remove('show');
+    }, 5000);
+
+    // Schedule next show between 30s and 3min (180s)
+    var nextDelay = 30000 + Math.random() * 150000;
+    setTimeout(showTicker, nextDelay);
+  }
+
+  // First show after 3s
+  setTimeout(showTicker, 3000);
+
+  // ===== MENU FILTERING =====
+  var filterBtns = document.querySelectorAll('.filter-tag');
+  var menuCards = document.querySelectorAll('#menuGrid .menu-card');
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var filter = this.dataset.filter;
+      
+      filterBtns.forEach(function (b) { b.classList.remove('active'); });
+      this.classList.add('active');
+
+      menuCards.forEach(function (card) {
+        if (filter === 'all' || (card.dataset.tags && card.dataset.tags.indexOf(filter) !== -1)) {
+          card.style.display = '';
+          setTimeout(function() { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(function() { card.style.display = 'none'; }, 300);
+        }
+      });
+    });
+  });
+
+  // ===== LAZY LOAD MAP =====
+  function initMap() {
+    var mapEl = document.getElementById('deliveryMap');
+    if (!mapEl || mapEl.classList.contains('initialized')) return;
+
+    const lat = -34.66505236342747;
+    const lng = -58.484301567077644;
+    const radiusInMeters = 3000;
+
+    const map = L.map('deliveryMap', { zoomControl: true, scrollWheelZoom: false }).setView([lat, lng], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    const fireIcon = L.divIcon({
+      className: '',
+      html: `<div style="
+        background: linear-gradient(135deg, #FF6B35, #D4AF37);
+        width: 40px; height: 40px;
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        border: 3px solid #fff;
+        box-shadow: 0 4px 15px rgba(255,107,53,0.6);
+        display:flex;align-items:center;justify-content:center;
+      "><span style="transform:rotate(45deg);font-size:18px;">🔥</span></div>`,
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+      popupAnchor: [0, -45]
+    });
+
+    const marker = L.marker([lat, lng], { icon: fireIcon }).addTo(map);
+    marker.bindPopup(
+      '<div style="font-family:\'Playfair Display\',serif;text-align:center;padding:4px 8px">'
+      + '<strong style="color:#D4AF37;font-size:1rem;">Sabor a Pecado</strong>'
+      + '<br><span style="font-size:0.8rem;color:#555;">🚀 ¡Nuestra zona!</span>'
+      + '</div>'
+    );
+
+    L.circle([lat, lng], {
+      color: '#FF6B35',
+      fillColor: '#D4AF37',
+      fillOpacity: 0.12,
+      weight: 2.5,
+      dashArray: '8, 6',
+      radius: radiusInMeters
+    }).addTo(map);
+
+    mapEl.classList.add('initialized');
+  }
+
+  var mapObserver = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) {
+      initMap();
+      mapObserver.disconnect();
+    }
+  }, { threshold: 0.1 });
+
+  var mapSection = document.querySelector('.delivery-map-section');
+  if (mapSection) mapObserver.observe(mapSection);
 
   // ===== CART STATE =====
   var cart = [];
@@ -66,14 +207,10 @@
   function updateCartUI() {
     var count = getCartCount();
     var total = getCartTotal();
-
-    // Badge
     if (cartCountEl) {
       cartCountEl.textContent = count;
       if (count > 0) { cartCountEl.classList.add('show'); } else { cartCountEl.classList.remove('show'); }
     }
-
-    // Items
     if (cartItemsEl) {
       if (cart.length === 0) {
         cartItemsEl.innerHTML = '<div class="cart-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg><p>Tu carrito está vacío.<br>Elegí tu primer pecado.</p></div>';
@@ -97,8 +234,6 @@
           html += '</div>';
         });
         cartItemsEl.innerHTML = html;
-
-        // Bind qty and remove buttons
         cartItemsEl.querySelectorAll('.cart-qty-btn').forEach(function (btn) {
           btn.addEventListener('click', function () {
             var idx = parseInt(this.dataset.index);
@@ -113,12 +248,8 @@
         });
       }
     }
-
-    // Totals
     if (cartSubtotalEl) cartSubtotalEl.textContent = '$' + total.toLocaleString();
     if (cartTotalEl) cartTotalEl.textContent = '$' + total.toLocaleString();
-
-    // Update checkout summary
     updateCheckoutSummary();
   }
 
@@ -143,7 +274,7 @@
   if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeCartDrawer);
   if (cartOverlay) cartOverlay.addEventListener('click', closeCartDrawer);
 
-  // ===== ADD TO CART BUTTONS =====
+  // ===== ADD TO CART =====
   document.querySelectorAll('.favorito-card-add, .menu-card-btn').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
@@ -165,7 +296,6 @@
     window.scrollTo(0, 0);
     updateCheckoutSummary();
   }
-
   function hideCheckout() {
     if (checkoutSection) checkoutSection.classList.remove('active');
     if (mainContent) mainContent.style.display = '';
@@ -194,7 +324,7 @@
     if (summaryTotal) summaryTotal.textContent = '$' + total.toLocaleString();
   }
 
-  // Payment method selection
+  // Payment methods
   document.querySelectorAll('.payment-method').forEach(function (el) {
     el.addEventListener('click', function () {
       document.querySelectorAll('.payment-method').forEach(function (m) { m.classList.remove('active'); });
@@ -202,7 +332,7 @@
     });
   });
 
-  // Confirm order
+  // WhatsApp confirm
   var confirmBtn = document.getElementById('confirmOrder');
   if (confirmBtn) {
     confirmBtn.addEventListener('click', function () {
@@ -217,81 +347,64 @@
     });
   }
 
-  // ===== NAVBAR SCROLL =====
+  // ===== NAVIGATION & SCROLL =====
   var navbar = document.getElementById('navbar');
-  function handleNavbarScroll() {
-    if (window.scrollY > 50) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
-  }
-  window.addEventListener('scroll', handleNavbarScroll, { passive: true });
-
-  // ===== MOBILE MENU =====
-  var mobileToggle = document.getElementById('mobileToggle');
-  var navLinks = document.getElementById('navLinks');
-  mobileToggle.addEventListener('click', function () {
-    var isOpen = navLinks.classList.toggle('open');
-    mobileToggle.setAttribute('aria-expanded', isOpen);
-    var spans = mobileToggle.querySelectorAll('span');
-    if (isOpen) { spans[0].style.transform='rotate(45deg) translate(5px,5px)'; spans[1].style.opacity='0'; spans[2].style.transform='rotate(-45deg) translate(5px,-5px)'; }
-    else { spans[0].style.transform='none'; spans[1].style.opacity='1'; spans[2].style.transform='none'; }
-  });
-  navLinks.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      navLinks.classList.remove('open'); mobileToggle.setAttribute('aria-expanded','false');
-      var s = mobileToggle.querySelectorAll('span');
-      s[0].style.transform='none'; s[1].style.opacity='1'; s[2].style.transform='none';
-    });
-  });
-
-  // ===== ACTIVE NAV ON SCROLL =====
-  var sections = document.querySelectorAll('section[id]');
-  var navItems = navLinks.querySelectorAll('a');
-  function updateActiveNav() {
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) { if (navbar) navbar.classList.add('scrolled'); } 
+    else { if (navbar) navbar.classList.remove('scrolled'); }
+    
     var sp = window.scrollY + 160;
-    sections.forEach(function (sec) {
+    document.querySelectorAll('section[id]').forEach(function (sec) {
       var t = sec.offsetTop, h = sec.offsetHeight, id = sec.getAttribute('id');
       if (sp >= t && sp < t + h) {
-        navItems.forEach(function (item) {
+        document.querySelectorAll('#navLinks a').forEach(function (item) {
           item.classList.remove('active');
           if (item.getAttribute('href') === '#' + id) item.classList.add('active');
         });
       }
     });
-  }
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  }, { passive: true });
 
-  // ===== MENU SIDEBAR NAV =====
-  document.querySelectorAll('.menu-cat-link').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      document.querySelectorAll('.menu-cat-link').forEach(function (b) { b.classList.remove('active'); });
-      this.classList.add('active');
-      var target = document.getElementById(this.dataset.target);
+  var mobileToggle = document.getElementById('mobileToggle');
+  var navLinks = document.getElementById('navLinks');
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', isOpen);
+      var spans = mobileToggle.querySelectorAll('span');
+      if (isOpen) { spans[0].style.transform='rotate(45deg) translate(5px,5px)'; spans[1].style.opacity='0'; spans[2].style.transform='rotate(-45deg) translate(5px,-5px)'; }
+      else { spans[0].style.transform='none'; spans[1].style.opacity='1'; spans[2].style.transform='none'; }
+    });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+    anchor.addEventListener('click', function (e) {
+      var id = this.getAttribute('href');
+      if (id === '#') return;
+      e.preventDefault();
+      if (checkoutSection && checkoutSection.classList.contains('active')) hideCheckout();
+      var target = document.querySelector(id);
       if (target) {
-        var pos = target.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 30;
+        var pos = target.getBoundingClientRect().top + window.scrollY - (navbar ? navbar.offsetHeight : 0) - 20;
         window.scrollTo({ top: pos, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
       }
     });
   });
 
-  // ===== COUNTDOWN =====
   function updateCountdown() {
     var now = new Date();
     var end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
     var diff = end - now;
     if (diff <= 0) return;
-    var d = Math.floor(diff / 864e5);
-    var h = Math.floor((diff % 864e5) / 36e5);
-    var m = Math.floor((diff % 36e5) / 6e4);
-    var s = Math.floor((diff % 6e4) / 1e3);
-    var el = function(id) { return document.getElementById(id); };
-    if (el('days')) el('days').textContent = String(d).padStart(2, '0');
-    if (el('hours')) el('hours').textContent = String(h).padStart(2, '0');
-    if (el('minutes')) el('minutes').textContent = String(m).padStart(2, '0');
-    if (el('seconds')) el('seconds').textContent = String(s).padStart(2, '0');
+    var d = Math.floor(diff / 864e5), h = Math.floor((diff % 864e5) / 36e5), m = Math.floor((diff % 36e5) / 6e4), s = Math.floor((diff % 6e4) / 1e3);
+    if (document.getElementById('days')) document.getElementById('days').textContent = String(d).padStart(2, '0');
+    if (document.getElementById('hours')) document.getElementById('hours').textContent = String(h).padStart(2, '0');
+    if (document.getElementById('minutes')) document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+    if (document.getElementById('seconds')) document.getElementById('seconds').textContent = String(s).padStart(2, '0');
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // ===== SCROLL ANIMATIONS =====
   if (!prefersReducedMotion.matches) {
     var obs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
@@ -301,29 +414,9 @@
     document.querySelectorAll('.animate-on-scroll').forEach(function (el) { el.classList.add('visible'); });
   }
 
-  // ===== IMAGE FADE-IN =====
   document.querySelectorAll('.fade-in-image').forEach(function (img) {
     if (img.complete) { img.classList.add('loaded'); } else { img.addEventListener('load', function () { img.classList.add('loaded'); }); }
   });
 
-  // ===== SMOOTH SCROLL =====
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      var id = this.getAttribute('href');
-      if (id === '#') return;
-      e.preventDefault();
-      // If we're in checkout, go back first
-      if (checkoutSection && checkoutSection.classList.contains('active')) hideCheckout();
-      var target = document.querySelector(id);
-      if (target) {
-        var pos = target.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 20;
-        window.scrollTo({ top: pos, behavior: prefersReducedMotion.matches ? 'auto' : 'smooth' });
-      }
-    });
-  });
-
-  // ===== INIT =====
-  handleNavbarScroll();
-  updateActiveNav();
   updateCartUI();
 })();

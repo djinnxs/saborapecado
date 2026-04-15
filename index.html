@@ -11,6 +11,22 @@
 </head>
 <body>
 
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="custom-cursor-follower" id="customCursorFollower"></div>
+
+  <!-- Social Proof Ticker -->
+  <div class="social-ticker" id="socialTicker">
+    <div class="social-ticker-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    </div>
+    <div class="social-ticker-content">
+      <span class="social-ticker-name" id="tickerName">Cargando...</span>
+      <span id="tickerText">acaba de pedir su pecado.</span>
+      <div class="social-ticker-time" id="tickerTime">Hace 2 minutos</div>
+    </div>
+  </div>
+
   <!-- Embers -->
   <div class="embers" aria-hidden="true"><div class="ember"></div><div class="ember"></div><div class="ember big"></div><div class="ember"></div><div class="ember"></div><div class="ember big"></div><div class="ember"></div><div class="ember"></div><div class="ember"></div><div class="ember big"></div><div class="ember"></div><div class="ember"></div><div class="ember"></div><div class="ember"></div><div class="ember"></div></div>
 
@@ -200,7 +216,7 @@
           <div class="promo-content">
             <h3 class="promo-title">Pecado Clásico</h3>
             <p class="promo-desc">pan tostado, carne, tomate, lechuga, queso y jamón + papas.</p>
-            <div class="promo-price">$7.900</div>
+            <div class="promo-price">$10.000</div>
             <button class="menu-card-btn" onclick="document.querySelector('[aria-label=\'Agregar Pecado Clásico\']').click()" style="margin-top:var(--space-md)">Agregar</button>
             <!-- Hidden original button for cart compatibility -->
             <button class="menu-card-btn" aria-label="Agregar Pecado Clásico" style="display:none">Agregar</button>
@@ -244,12 +260,21 @@
           <div id="hamburguesas">
             <h3 class="menu-section-title animate-on-scroll">Hamburguesas Prohibidas</h3>
             <p class="menu-section-subtitle animate-on-scroll">Carnes maduradas y combinaciones que desafían la moral.</p>
-            <div class="menu-grid">
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/promo.png" alt="Pecado Clásico" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Pecado Clásico</h3><p class="menu-card-desc">Pan tostado, carne, tomate, lechuga, queso y jamón + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$7.900</span><button class="menu-card-btn" aria-label="Agregar Pecado Clásico">Agregar</button></div></div></article>
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/cheese-burger.png" alt="Lujuria de Queso" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Lujuria de Queso</h3><p class="menu-card-desc">Volcán de parmesano, inyección de cheddar y queso pategras sobre una carne infernal + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$14.000</span><button class="menu-card-btn" aria-label="Agregar Lujuria de Queso">Agregar</button></div></div></article>
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/spicy-burger.png" alt="Inferno Spicy" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Inferno Spicy</h3><p class="menu-card-desc">Doble carne, doble cheddar, bacon, y alioli + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$14.000</span><button class="menu-card-btn" aria-label="Agregar Inferno Spicy">Agregar</button></div></div></article>
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/hero-burger.png" alt="Tentación Suprema" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Tentación Suprema</h3><p class="menu-card-desc">Doble carne, doble cheddar + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$13.000</span><button class="menu-card-btn" aria-label="Agregar Tentación Suprema">Agregar</button></div></div></article>
-              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/spicy-burger.png" alt="Gula de Carne" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Gula de Carne</h3><p class="menu-card-desc">Triple carne, doble cheddar y bacon + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$15.000</span><button class="menu-card-btn" aria-label="Agregar Gula de Carne">Agregar</button></div></div></article>
+            
+            <!-- Menu Filters -->
+            <div class="menu-filters animate-on-scroll" id="menuFilters">
+              <button class="filter-tag active" data-filter="all">Todos</button>
+              <button class="filter-tag" data-filter="spicy"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.64 5.23c.27-.63.15-1.39-.28-1.93-.44-.53-1.12-.76-1.84-.61-5.12 1.09-8.48 4.49-10.02 8.52-1.55 4.02-1.35 8.3.16 11.23.27.53.81.82 1.39.82.23 0 .47-.05.71-.16.82-.39 1.1-1.37.54-2.11-.99-1.3-.87-2.92-.72-4.14.3.43.66.86 1.16 1.25.93.73 2.12.83 3.08.31.95-.51 1.4-1.57.94-2.52-.39-.79-1.34-1.31-2.19-1.31H12.5c.34-.34.69-.73 1.04-1.15 1.5-1.8 3.52-4.22 6.1-8.33z"/></svg> Picantes</button>
+              <button class="filter-tag" data-filter="veggie"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l.95-2.3c1.05.33 2.1.3 3.1.3 1.01 0 1.9-.3 2.7-.3l.9 2.3 1.89-.66c-1.42-3.55-2.7-7.14-2.25-13.38V8z"/></svg> Veggie</button>
+              <button class="filter-tag" data-filter="heavy"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> Contundentes</button>
+            </div>
+
+            <div class="menu-grid" id="menuGrid">
+              <article class="menu-card animate-on-scroll" data-tags="heavy"><div class="menu-card-image"><img src="images/promo.png" alt="Pecado Clásico" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><div class="item-tags"><span class="item-tag tag-heavy">Clásica</span></div><h3 class="menu-card-name">Pecado Clásico</h3><p class="menu-card-desc">Pan tostado, carne, tomate, lechuga, queso y jamón + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$10.000</span><button class="menu-card-btn" aria-label="Agregar Pecado Clásico">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll" data-tags="heavy"><div class="menu-card-image"><img src="images/cheese-burger.png" alt="Lujuria de Queso" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><div class="item-tags"><span class="item-tag tag-heavy">Queso Extra</span></div><h3 class="menu-card-name">Lujuria de Queso</h3><p class="menu-card-desc">Volcán de parmesano, inyección de cheddar y queso pategras sobre una carne infernal + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$14.000</span><button class="menu-card-btn" aria-label="Agregar Lujuria de Queso">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll" data-tags="spicy"><div class="menu-card-image"><img src="images/spicy-burger.png" alt="Inferno Spicy" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><div class="item-tags"><span class="item-tag tag-spicy">Hot 🌶️</span></div><h3 class="menu-card-name">Inferno Spicy</h3><p class="menu-card-desc">Doble carne, doble cheddar, bacon, y alioli + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$14.000</span><button class="menu-card-btn" aria-label="Agregar Inferno Spicy">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll" data-tags="heavy"><div class="menu-card-image"><img src="images/hero-burger.png" alt="Tentación Suprema" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><div class="item-tags"><span class="item-tag tag-heavy">Popular</span></div><h3 class="menu-card-name">Tentación Suprema</h3><p class="menu-card-desc">Doble carne, doble cheddar + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$13.000</span><button class="menu-card-btn" aria-label="Agregar Tentación Suprema">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll" data-tags="heavy"><div class="menu-card-image"><img src="images/spicy-burger.png" alt="Gula de Carne" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><div class="item-tags"><span class="item-tag tag-heavy">Triple</span></div><h3 class="menu-card-name">Gula de Carne</h3><p class="menu-card-desc">Triple carne, doble cheddar y bacon + papas.</p><div class="menu-card-footer"><span class="menu-card-price">$15.000</span><button class="menu-card-btn" aria-label="Agregar Gula de Carne">Agregar</button></div></div></article>
             </div>
           </div>
           <div id="tentaciones">
@@ -258,6 +283,8 @@
             <div class="menu-grid">
               <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/grilled-sandwich.png" alt="Papas del Diablo" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Papas del Diablo</h3><p class="menu-card-desc">"Papas fritas cocinadas con el fuego secreto."</p><div class="menu-card-footer"><span class="menu-card-price">$5000</span><button class="menu-card-btn" aria-label="Agregar Papas del Diablo">Agregar</button></div></div></article>
               <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/hero-sandwich.png" alt="Lomito Pecaminoso" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Lomito Pecaminoso</h3><p class="menu-card-desc">Sándwich pan tostado, carne, tomate, lechuga, huevo frito, queso y jamón.</p><div class="menu-card-footer"><span class="menu-card-price">$13.000</span><button class="menu-card-btn" aria-label="Agregar Lomito Pecaminoso">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/nuguets.jpg" alt="Nuggets" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Nuggets</h3><p class="menu-card-desc">Crujientes bocados de pollo pecaminosos.</p><div class="menu-card-footer"><span class="menu-card-price">$10.000</span><button class="menu-card-btn" aria-label="Agregar Nuggets">Agregar</button></div></div></article>
+              <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/salchipapa.jpg" alt="Salchipapa" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Salchipapa</h3><p class="menu-card-desc">Mezcla infernal de papas y salchichas de alta calidad.</p><div class="menu-card-footer"><span class="menu-card-price">$10.000</span><button class="menu-card-btn" aria-label="Agregar Salchipapa">Agregar</button></div></div></article>
               <article class="menu-card animate-on-scroll"><div class="menu-card-image"><img src="images/mila2.png" alt="Milanesa infernal" loading="lazy" class="fade-in-image" /></div><div class="menu-card-body"><h3 class="menu-card-name">Milanesa infernal</h3><p class="menu-card-desc">Sándwich pan tostado, milanesa, tomate, lechuga, huevo frito, queso y jamón.</p><div class="menu-card-footer"><span class="menu-card-price">$14.000</span><button class="menu-card-btn" aria-label="Agregar Milanesa infernal">Agregar</button></div></div></article>
             </div>
           </div>
