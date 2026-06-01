@@ -59,13 +59,13 @@
       ticker.classList.remove('show');
     }, 5000);
 
-    // Schedule next show between 30s and 3min (180s)
-    var nextDelay = 30000 + Math.random() * 150000;
+    // Schedule next show every 5 minutes (300,000 ms)
+    var nextDelay = 300000;
     setTimeout(showTicker, nextDelay);
   }
 
-  // First show after 3s
-  setTimeout(showTicker, 3000);
+  // First show after 5 minutes (300,000 ms)
+  setTimeout(showTicker, 300000);
 
   // ===== MENU FILTERING =====
   var filterBtns = document.querySelectorAll('.filter-tag');
@@ -338,10 +338,20 @@
   }
 
   // Payment methods
+  var cardContainer = document.getElementById('cardFieldsContainer');
   document.querySelectorAll('.payment-method').forEach(function (el) {
     el.addEventListener('click', function () {
       document.querySelectorAll('.payment-method').forEach(function (m) { m.classList.remove('active'); });
       this.classList.add('active');
+      
+      var methodText = this.querySelector('span').textContent.trim().toLowerCase();
+      if (cardContainer) {
+        if (methodText === 'tarjeta') {
+          cardContainer.style.display = 'block';
+        } else {
+          cardContainer.style.display = 'none';
+        }
+      }
     });
   });
 
@@ -350,13 +360,41 @@
   if (confirmBtn) {
     confirmBtn.addEventListener('click', function () {
       if (cart.length === 0) return;
+
+      var nameVal = document.getElementById('checkoutName') ? document.getElementById('checkoutName').value.trim() : '';
+      var phoneVal = document.getElementById('checkoutPhone') ? document.getElementById('checkoutPhone').value.trim() : '';
+      var addressVal = document.getElementById('checkoutAddress') ? document.getElementById('checkoutAddress').value.trim() : '';
+      var notesVal = document.getElementById('checkoutNotes') ? document.getElementById('checkoutNotes').value.trim() : '';
+
+      if (!nameVal || !phoneVal || !addressVal) {
+        alert('Por favor, completa los campos requeridos: Nombre, Teléfono y Dirección de Entrega.');
+        return;
+      }
+
+      var activePaymentMethod = 'Efectivo';
+      var activeMethodEl = document.querySelector('.payment-method.active span');
+      if (activeMethodEl) {
+        activePaymentMethod = activeMethodEl.textContent.trim();
+      }
+
       var total = getCartTotal();
-      var msg = 'Hola! Quiero hacer un pedido:%0A%0A';
+      var msg = 'Hola! Quiero hacer un pedido:\n\n';
+      
       cart.forEach(function (item) {
-        msg += '• ' + item.name + ' x' + item.qty + ' - $' + (item.price * item.qty).toLocaleString() + '%0A';
+        msg += '• ' + item.name + ' x' + item.qty + ' - $' + (item.price * item.qty).toLocaleString() + '\n';
       });
-      msg += '%0ATotal: $' + total.toLocaleString();
-      window.open('https://wa.me/5491150177778?text=' + msg, '_blank');
+      msg += '\nTotal: $' + total.toLocaleString() + '\n\n';
+
+      msg += '*Detalles de Entrega*:\n';
+      msg += '- *Nombre*: ' + nameVal + '\n';
+      msg += '- *Teléfono*: ' + phoneVal + '\n';
+      msg += '- *Dirección*: ' + addressVal + '\n';
+      if (notesVal) {
+        msg += '- *Notas*: ' + notesVal + '\n';
+      }
+      msg += '- *Método de Pago*: ' + activePaymentMethod + ' (A coordinar por WhatsApp)';
+
+      window.open('https://wa.me/5491150177778?text=' + encodeURIComponent(msg), '_blank');
     });
   }
 
